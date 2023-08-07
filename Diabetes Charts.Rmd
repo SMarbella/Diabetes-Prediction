@@ -34,6 +34,16 @@ You can also embed plots, for example:
 ```{r read file, echo=FALSE}
 file = "data\\diabetes_prediction_dataset.csv"
 diabetesData <- read.csv(file)
+
+# Changes binary numbers in diabetes column to Yes and No.
+diabetesData <- diabetesData %>% mutate(diabetes = ifelse(diabetes == 0, "No", "Yes"))
+
+# Changes binary numbers in hypertension column to Yes and No.
+diabetesData <- diabetesData %>% mutate(hypertension = ifelse(hypertension == 0, "No", "Yes"))
+
+# Changes binary numbers in heart_disease column to Yes and No.
+diabetesData <- diabetesData %>% mutate(heart_disease = ifelse(heart_disease == 0, "No", "Yes"))
+
 head(diabetesData)
 ```
 
@@ -42,7 +52,20 @@ head(diabetesData)
 Plot 1 measures the frequency of diabetes between men, women, and other as they age. The older the person, the more likely they get diabetes. Men are slightly more likely to have diabetes at a younger age than women.
 
 ```{r age gender plot, echo=FALSE}
-# Changes binary numbers in diabetes column to Yes and No.
-diabetesData <- diabetesData %>% mutate(diabetes = ifelse(diabetes == 0, "No", "Yes"))
 ggplot(diabetesData, aes(x=gender, y=age, color=(diabetes))) + geom_point(position="Jitter", width=0.25, alpha=0.5)
+```
+## Frequency of Diabetes Between Age and Smoking History
+
+Plot 2 measures the frequency of diabetes between age and heart disease. The older the person, the more likely they get diabetes. Smokers and those with any smoking history tend to have a higher chance of getting heart disease than non-smokers.
+
+```{r age smoking plot, echo=FALSE}
+ggplot(diabetesData, aes(x=diabetes, y=age, color=(heart_disease))) + geom_point(position="Jitter", width=0.25, alpha=0.5)
+```
+
+## Frequency of Diabetes Between hbA1c Level and Blood Glucose Level
+
+Plot 3 measures the frequency of diabetes between hbA1c level and blood glucose level. Lighter colors represent higher levels of HbA1c and vice versa. In general, people who have diabetes have higher blood glucose and HbA1c levels.
+
+```{r hbA1c glucose levels plot, echo=FALSE}
+ggplot(diabetesData, aes(x=diabetes, y=blood_glucose_level, color=(HbA1c_level))) + geom_boxplot(outlier.shape=NA) + geom_jitter(alpha=0.5)
 ```
