@@ -47,19 +47,21 @@ diabetesData <- diabetesData %>% mutate(heart_disease = ifelse(heart_disease == 
 head(diabetesData)
 ```
 
-## Frequency of Diabetes Between Genders and Age
+## Frequency of Diabetes Between Age and Gender
 
 Plot 1 measures the frequency of diabetes between men, women, and other as they age. The older the person, the more likely they get diabetes. Men are slightly more likely to have diabetes at a younger age than women.
 
 ```{r age gender plot, echo=FALSE}
-ggplot(diabetesData, aes(x=gender, y=age, color=(diabetes))) + geom_point(position="Jitter", width=0.25, alpha=0.5)
-```
-## Frequency of Diabetes Between Age and Smoking History
+diabeticPatients <- subset(diabetesData, diabetes != "No")
 
-Plot 2 measures the frequency of diabetes between age and heart disease. The older the person, the more likely they get diabetes. Smokers and those with any smoking history tend to have a higher chance of getting heart disease than non-smokers.
+ggplot(diabeticPatients, aes(x=gender, y=age)) + geom_point(position="Jitter", width=0.25, alpha=0.5) + labs(y="Age", x="Gender", title="Frequency of Diabetes", subtitle="8,500 diabetic patients of different age and gender") + bbc_style() + theme(axis.title = element_text())
+```
+## Frequency of Diabetes Between Smoking History and Heart Disease
+
+Plot 2 measures the frequency of diabetes between age and heart disease. The older the person, the more likely they get diabetes. Smokers and those with any smoking history tend to have a higher chance of getting heart disease and diabetes than non-smokers.
 
 ```{r age smoking plot, echo=FALSE}
-ggplot(diabetesData, aes(x=diabetes, y=age, color=(heart_disease))) + geom_point(position="Jitter", width=0.25, alpha=0.5)
+ggplot(diabetesData, aes(x=diabetes, y=smoking_history, color=(heart_disease))) + geom_point(position="Jitter", width=0.25, alpha=0.5) + labs(y="Smoking History", x="Diabetes", fill="Heart Disease", title="Frequency of Diabetes", subtitle="Smoking history of heart disease patients") + bbc_style() + theme(axis.title = element_text())
 ```
 
 ## Frequency of Diabetes Between hbA1c Level and Blood Glucose Level
@@ -68,4 +70,59 @@ Plot 3 measures the frequency of diabetes between hbA1c level and blood glucose 
 
 ```{r hbA1c glucose levels plot, echo=FALSE}
 ggplot(diabetesData, aes(x=diabetes, y=blood_glucose_level, color=(HbA1c_level))) + geom_boxplot(outlier.shape=NA) + geom_jitter(alpha=0.5)
+```
+## Frequency of Diabetes Between hbA1c Level and Blood Glucose Level
+
+Plot 3 measures the frequency of diabetes between hbA1c level and blood glucose level. Lighter colors represent higher levels of HbA1c and vice versa. In general, people who have diabetes have higher blood glucose and HbA1c levels.
+
+```{r hbA1c glucose levels plot, echo=FALSE}
+ggplot(diabetesData, aes(x=diabetes, y=bmi)) + geom_boxplot(outlier.shape=NA) + geom_jitter(alpha=0.5)
+```
+
+## Frequency of Diabetes Between hbA1c Level and Blood Glucose Level
+
+Plot 3 measures the frequency of diabetes between hbA1c level and blood glucose level. Lighter colors represent higher levels of HbA1c and vice versa. In general, people who have diabetes have higher blood glucose and HbA1c levels.
+
+```{r apriori, echo=FALSE}
+set.seed(3)
+appearance = list(default = "lhs", rhs = ("diabetes=Yes"))
+
+library(arules)
+library(arulesViz)
+
+# Samples random 1,000 patients out of 100,000 patients.
+sample <- diabetesData[sample(nrow(diabetesData), 1000), ]
+sample
+
+# Converts data frame to transactions.
+trans <- as(hasDiabetes, "transactions")
+
+#Uses apriori() function on diabetic people.
+rules <- apriori(trans, appearance = appearance)
+
+# Views rules.
+inspect(rules)
+```
+Uses arulesViz to visualize the results.
+
+```{r}
+# BEGIN SOLUTION
+library(arulesViz)
+
+plot(rules, main = "Diabetes")
+"
+[The x axis represents the support while the y axis represents the confidence or lift. Support indicates how frequently a set of items appear in the data. It is the number of transactions that contains this set. Confidence or lift indicates how often the support rule is true. Lift is a measure of association using both support and confidence. The lift value of an association rule includes the list of rules whose confidence is above the threshold.]
+"
+# END SOLUTION
+```
+Sorts the list of previously created rules and uses lift > 0.99 to find the best rules.
+```{r}
+# BEGIN SOLUTION
+# Sort the list of previously created rules.
+sortedRules <- sort(rules)
+
+# Uses lift > 0.99 to find the best rules.
+subrules <- subset(sortedRules, lift>0.99)
+plot(subrules)
+inspect(subrules)
 ```
