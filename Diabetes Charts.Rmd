@@ -32,51 +32,61 @@ library(dplyr)
 You can also embed plots, for example:
 
 ```{r read file, echo=FALSE}
-file = "data\\diabetes_prediction_dataset.csv"
+file = "https://datahub.io/machine-learning/diabetes/r/diabetes.csv"
 diabetesData <- read.csv(file)
 
-# Changes binary numbers in diabetes column to Yes and No.
-diabetesData <- diabetesData %>% mutate(diabetes = ifelse(diabetes == 0, "No", "Yes"))
+# Replaces 0s in all columns with NAs except for preg and class.
+diabetesData$plas[diabetesData$plas == 0] <- NA
+diabetesData$pres[diabetesData$pres == 0] <- NA
+diabetesData$skin[diabetesData$skin == 0] <- NA
+diabetesData$insu[diabetesData$insu == 0] <- NA
+diabetesData$mass[diabetesData$mass == 0] <- NA
+diabetesData$pedi[diabetesData$pedi == 0] <- NA
 
-# Changes binary numbers in hypertension column to Yes and No.
-diabetesData <- diabetesData %>% mutate(hypertension = ifelse(hypertension == 0, "No", "Yes"))
+# Drops rows with NAs in all columns except for preg and class.
+diabetesData <- na.omit(diabetesData)
 
-# Changes binary numbers in heart_disease column to Yes and No.
-diabetesData <- diabetesData %>% mutate(heart_disease = ifelse(heart_disease == 0, "No", "Yes"))
+# Renames columns for easier readability
+diabetesData <- data.frame(Pregnancies=diabetesData$preg, GlucoseLevel=diabetesData$plas, BloodPressure=diabetesData$pres, SkinThickness=diabetesData$skin, Insulin=diabetesData$insu, BMI=diabetesData$mass, DiabetesPedigreeFunction=diabetesData$pedi, Age=diabetesData$age, Outcome=diabetesData$class)
 
 head(diabetesData)
 ```
 
-## Frequency of Diabetes Between Age and Gender
+## Frequency of Diabetes Between Age and Number of Pregnancies
 
-Plot 1 measures the frequency of diabetes between men, women, and other as they age. The older the person, the more likely they get diabetes. Men are slightly more likely to have diabetes at a younger age than women.
+Plot 1 measures the frequency of diabetes in women of Pima indigenous heritage living near Phoenix, Arizona as they age. Older women are more likely to be tested positive for diabetes than younger women.
 
-```{r age gender plot, echo=FALSE}
-diabeticPatients <- subset(diabetesData, diabetes != "No")
-
-ggplot(diabeticPatients, aes(x=gender, y=age)) + geom_point(position="Jitter", width=0.25, alpha=0.5) + labs(y="Age", x="Gender", title="Frequency of Diabetes", subtitle="8,500 diabetic patients of different age and gender") + bbc_style() + theme(axis.title = element_text())
+```{r age diabetic plot, echo=FALSE}
+ggplot(diabetesData, aes(x=Outcome, y=Age)) + geom_point(position="Jitter", width=0.25, alpha=0.5) + labs(y="Age", x="Diabetes Status", title="Frequency of Diabetes in Women", subtitle="Of Pima indigenous heritage near Phoenix, AZ") + theme(legend.position = "top", legend.justification = "left") + bbc_style() + theme(axis.title = element_text())
 ```
-## Frequency of Diabetes Between Smoking History and Heart Disease
+## Frequency of Diabetes Between Age and Number of Pregnancies
 
-Plot 2 measures the frequency of diabetes between age and heart disease. The older the person, the more likely they get diabetes. Smokers and those with any smoking history tend to have a higher chance of getting heart disease and diabetes than non-smokers.
+Plot 2 measures the frequency of diabetes in women of Pima indigenous heritage living near Phoenix, Arizona as they age or have more children. The older the woman, the more likely she gets diabetes. Women who had more children are more likely to be tested positive for diabetes. Women who had about 5 or more children tend to have a higher percentage of positive diabetes diagnosis.
 
-```{r age smoking plot, echo=FALSE}
-ggplot(diabetesData, aes(x=diabetes, y=smoking_history, color=(heart_disease))) + geom_point(position="Jitter", width=0.25, alpha=0.5) + labs(y="Smoking History", x="Diabetes", fill="Heart Disease", title="Frequency of Diabetes", subtitle="Smoking history of heart disease patients") + bbc_style() + theme(axis.title = element_text())
+```{r age pregnancies, echo=FALSE}
+ggplot(diabetesData, aes(x=Pregnancies, y=Age, color=Outcome)) + geom_point(position="Jitter", width=0.25, alpha=0.5) + labs(y="Age", x="Number of Pregnancies", title="Frequency of Diabetes in Women", subtitle="Of Pima indigenous heritage near Phoenix, AZ") + theme(legend.position = "top", legend.justification = "left") + bbc_style() + theme(axis.title = element_text()) + scale_colour_manual(values = c("#2D9900", "red"))
 ```
 
-## Frequency of Diabetes Between hbA1c Level and Blood Glucose Level
+## Frequency of Diabetes Between Age and Blood Pressure Level
 
-Plot 3 measures the frequency of diabetes between hbA1c level and blood glucose level. Lighter colors represent higher levels of HbA1c and vice versa. In general, people who have diabetes have higher blood glucose and HbA1c levels.
+Plot 3 measures the frequency of diabetes between age and blood pressure. In general, those who are older and have higher blood pressure tend to be tested for diabetes.
+
+```{r age blood pressure plot, echo=FALSE}
+ggplot(diabetesData, aes(x=BloodPressure, y=Age, color=Outcome)) + geom_point(position="Jitter", width=0.25, alpha=0.5) + labs(y="Age", x="Blood Pressure Level", title="Frequency of Diabetes in Women", subtitle="Of Pima indigenous heritage near Phoenix, AZ") + theme(legend.position = "top", legend.justification = "left") + bbc_style() + theme(axis.title = element_text()) + scale_colour_manual(values = c("#2D9900", "red"))
+```
+## Frequency of Diabetes Between BMI and Blood Glucose Level
+
+Plot 4 measures the frequency of diabetes between insulin level and BMI. In general, women with higher blood glucose level and higher BMI are at risk of diabetes.
 
 ```{r hbA1c glucose levels plot, echo=FALSE}
-ggplot(diabetesData, aes(x=diabetes, y=blood_glucose_level, color=(HbA1c_level))) + geom_boxplot(outlier.shape=NA) + geom_jitter(alpha=0.5)
+ggplot(diabetesData, aes(x=GlucoseLevel, y=BMI, color=Outcome)) + geom_boxplot(outlier.shape=NA) + geom_jitter(alpha=0.5) + labs(y="BMI", x="Blood Glucose Level", title="Frequency of Diabetes in Women", subtitle="Of Pima indigenous heritage near Phoenix, AZ") + theme(legend.position = "top", legend.justification = "left") + bbc_style() + theme(axis.title = element_text()) + scale_colour_manual(values = c("#2D9900", "red"))
 ```
-## Frequency of Diabetes Between hbA1c Level and Blood Glucose Level
+## Frequency of Diabetes Between Insulin Level and Blood Glucose Level
 
-Plot 3 measures the frequency of diabetes between hbA1c level and blood glucose level. Lighter colors represent higher levels of HbA1c and vice versa. In general, people who have diabetes have higher blood glucose and HbA1c levels.
+Plot 5 measures the frequency of diabetes between insulin level and glucose level. In general, people wit higher glucose level and lower insulin level are at risk of diabetes.
 
-```{r hbA1c glucose levels plot, echo=FALSE}
-ggplot(diabetesData, aes(x=diabetes, y=bmi)) + geom_boxplot(outlier.shape=NA) + geom_jitter(alpha=0.5)
+```{r insulin glucose levels plot, echo=FALSE}
+ggplot(diabetesData, aes(x=Insulin, y=GlucoseLevel, color=Outcome)) + geom_boxplot(outlier.shape=NA) + geom_jitter(alpha=0.5) + bbc_style() + theme(axis.title = element_text()) + scale_colour_manual(values = c("#2D9900", "red"))
 ```
 
 ## Frequency of Diabetes Between hbA1c Level and Blood Glucose Level
@@ -85,20 +95,17 @@ Plot 3 measures the frequency of diabetes between hbA1c level and blood glucose 
 
 ```{r apriori, echo=FALSE}
 set.seed(3)
-appearance = list(default = "lhs", rhs = ("diabetes=Yes"))
+appearance = list(default = "lhs", rhs = ("Outcome=tested_positive"))
+parameter = list(supp = 0.001, conf = 0.8)
 
 library(arules)
 library(arulesViz)
 
-# Samples random 1,000 patients out of 100,000 patients.
-sample <- diabetesData[sample(nrow(diabetesData), 1000), ]
-sample
-
 # Converts data frame to transactions.
-trans <- as(hasDiabetes, "transactions")
+trans <- as(diabetesData, "transactions")
 
 #Uses apriori() function on diabetic people.
-rules <- apriori(trans, appearance = appearance)
+rules <- apriori(trans, parameter = parameter, appearance = appearance)
 
 # Views rules.
 inspect(rules)
@@ -115,14 +122,13 @@ plot(rules, main = "Diabetes")
 "
 # END SOLUTION
 ```
-Sorts the list of previously created rules and uses lift > 0.99 to find the best rules.
+Sorts the list of previously created rules and uses lift > 2.8 to find the best rules.
 ```{r}
 # BEGIN SOLUTION
 # Sort the list of previously created rules.
 sortedRules <- sort(rules)
 
 # Uses lift > 0.99 to find the best rules.
-subrules <- subset(sortedRules, lift>0.99)
+subrules <- subset(sortedRules, lift>2.9)
 plot(subrules)
-inspect(subrules)
 ```
