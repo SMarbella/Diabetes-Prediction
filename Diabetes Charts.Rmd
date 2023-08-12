@@ -29,13 +29,13 @@ library(dplyr)
 
 The diabetes dataframe comes from Datahub.io. It appears in Kaggle and many research papers regarding the frequency of diabetes among indigenous Native American people. The columns included in the table are:
 Pregnancies - Number of pregnancies.
-GlucoseLevel - Blood glucose level.
-BloodPressure - Blood pressure measurement taken at the time of the study.
-SkinThickness - Skin thickness.
-Insulin - Blood insulin levels.
-BMI - Body Mass Index.
+GlucoseLevel - Plasma glucose concentration a 2 hours in an oral glucose tolerance test.
+BloodPressure - Diastolic blood pressure measurement (mm Hg) taken at the time of the study.
+SkinThickness - Triceps skin fold thickness (mm).
+Insulin - 2-Hour serum insulin (mu U/ml).
+BMI - Body Mass Index (weight in kg/(height in m)^2).
 DiabetesPedigreeFunction - A measure of genetic influence that provides data on diabetes mellitus history in relatives and the genetic relationship of those relatives to the patient.
-Age - The woman's age.
+Age - The woman's age in years.
 Outcome - Tested either positive or negative for diabetes.
 
 ```{r read file, echo=FALSE}
@@ -95,16 +95,16 @@ Plot 5 measures the frequency of diabetes between insulin level and blood glucos
 ```{r insulin glucose levels plot, echo=FALSE}
 ggplot(diabetesData, aes(x=Insulin, y=GlucoseLevel, color=Outcome)) + geom_boxplot(outlier.shape=NA) + geom_jitter(alpha=0.5) + labs(y="BMI", x="Blood Glucose Level", title="Frequency of Diabetes in Women", subtitle="Of Pima indigenous heritage near Phoenix, AZ") + bbc_style() + theme(axis.title = element_text()) + scale_colour_manual(values = c("#2D9900", "red"))
 ```
-## Frequency of Diabetes in Different Skin Thickness
+## Frequency of Diabetes in Different Triceps Skin Fold Thickness
 
-Plot 6 measures the frequency of diabetes between different skin thickness. In general, women with thicker skin tend to be at risk of having diabetes.
+Plot 6 measures the frequency of diabetes between different triceps skin fold thickness. In general, women with thicker triceps skin fold thickness tend to be at risk of having diabetes.
 
 ```{r skin thickness plot, echo=FALSE}
 ggplot(diabetesData, aes(x=Outcome, y=SkinThickness)) + geom_boxplot(outlier.shape=NA) + geom_jitter(alpha=0.5) + labs(y="Skin Thickness", x="Diabetes Status", title="Frequency of Diabetes in Women", subtitle="Of Pima indigenous heritage near Phoenix, AZ") + theme(legend.position = "top", legend.justification = "left") + bbc_style() + theme(axis.title = element_text()) + scale_colour_manual(values = c("#2D9900", "red"))
 ```
-## Frequency of Diabetes in Different Skin Thickness and BMI
+## Frequency of Diabetes in Different Tricep Skin Fold Thickness and BMI
 
-Plot 7 measures the frequency of diabetes between skin thickness and BMI. Women with higher BMI have thicker skins. In general, diabetic women have thicker skin and higher BMI.
+Plot 7 measures the frequency of diabetes between skin thickness and BMI. Women with higher BMI have thicker tricep skin fold thickness (mm). In general, diabetic women have thicker skin and higher BMI.
 
 ```{r bmi skin thickness plot, echo=FALSE}
 ggplot(diabetesData, aes(x=BMI, y=SkinThickness, color=Outcome)) + geom_boxplot(outlier.shape=NA) + geom_jitter(alpha=0.5) + labs(y="Skin Thickness", x="BMI", title="Frequency of Diabetes in Women", subtitle="Of Pima indigenous heritage near Phoenix, AZ") + theme(legend.position = "top", legend.justification = "left") + bbc_style() + theme(axis.title = element_text()) + scale_colour_manual(values = c("#2D9900", "red"))
