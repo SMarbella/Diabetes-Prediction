@@ -29,7 +29,7 @@ library(dplyr)
 
 The diabetes dataframe comes from Datahub.io. It appears in Kaggle and many research papers regarding the frequency of type 2 diabetes among indigenous Native American people. The columns included in the table are:
 Pregnancies - Number of pregnancies.
-GlucoseLevel - Plasma glucose concentration a 2 hours in an oral glucose tolerance test.
+GlucoseLevel - Plasma glucose concentration from a 2-hour oral glucose tolerance test.
 BloodPressure - Diastolic blood pressure measurement (mm Hg) taken at the time of the study.
 SkinThickness - Triceps skin fold thickness (mm).
 Insulin - 2-Hour serum insulin (mu U/ml).
