@@ -81,6 +81,7 @@ The Association Rules from the apriori library compare the risk of type 2 diabet
 ![Image](https://github.com/SMarbella/Diabetes-Prediction/blob/main/data/Apriori%20Diabetes%20Association%20Rules.png)
 
 The arulesViz library visualizes the results. The x axis represents the support while the y axis represents the confidence or lift. Support indicates how frequently a set of items appear in the data. It is the number of transactions that contains this set. Confidence or lift indicates how often the support rule is true. Lift is a measure of association using both support and confidence. The lift value of an association rule includes the list of rules whose confidence is above the threshold.
+
 ![Image](https://github.com/SMarbella/Diabetes-Prediction/blob/main/data/Apriori%20-%20Visualized%20Association%20Rules%20Diabetes%20in%20Pima%20Indigenous%20Women.png)
 
 The previously created Association Rules can be sorted and filtered to find the best rules. A high filter, such as lift > 2.9, picks out the best rules. The best rules have a very high confidence (precision) and low support (recall) value because they show that the data is very precise. In this data, values with a lift > 2.9 show that certain table columns have a strong association with positive type 2 diabetes diagnosis.
