@@ -1,4 +1,4 @@
-# Diabetes Data Mining Prediction - Frequency of Diabetes Among Women of Pima Indigenous Heritage Living Near Phoenix, Arizona
+# Diabetes Data Mining Prediction - Frequency of Type 2 Diabetes Among Women of Pima Indigenous Heritage Living Near Phoenix, Arizona
 Final Project for INFO 523: Data Mining and Discovery
 
 ## Dataset Information
@@ -19,7 +19,7 @@ Final Project for INFO 523: Data Mining and Discovery
 **PDF:** https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2245621/pdf/procascamc00017-0301.pdf
 
 ## Table Columns
-This diabetes dataframe comes from Datahub.io. It appears in many research papers regarding the frequency of diabetes among indigenous Native American people. The columns included in the table are:
+This diabetes dataframe comes from Datahub.io. It appears in many research papers regarding the frequency of type 2 diabetes among indigenous Native American people. The columns included in the table are:
 
 Pregnancies - Number of pregnancies.
 
