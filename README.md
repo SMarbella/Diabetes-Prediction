@@ -23,13 +23,13 @@ This diabetes dataframe comes from Datahub.io. It appears in many research paper
 
 Pregnancies - Number of pregnancies.
 
-GlucoseLevel - Plasma glucose concentration a 2 hours in an oral glucose tolerance test.
+GlucoseLevel - Plasma glucose concentration from a 2-hour oral glucose tolerance test.
 
 BloodPressure - Diastolic blood pressure measurement (mm Hg) taken at the time of the study.
 
 SkinThickness - Triceps skin fold thickness (mm).
 
-Insulin - 2-Hour serum insulin (mu U/ml).
+Insulin - 2-hour serum insulin (mu U/ml).
 
 BMI - Body Mass Index at the time of the study (weight in kg/(height in m)^2).
 
