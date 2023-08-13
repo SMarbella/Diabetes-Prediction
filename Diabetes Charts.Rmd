@@ -64,7 +64,7 @@ head(diabetesData)
 Plot 1 measures the frequency of type 2 diabetes in women of Pima indigenous heritage living near Phoenix, Arizona as they age. Older women are more likely to be tested positive for type 2 diabetes than younger women.
 
 ```{r age diabetic plot, echo=FALSE}
-ggplot(diabetesData, aes(x=Outcome, y=Age)) + geom_point(position="Jitter", width=0.25, alpha=0.5) + labs(y="Age", x="Diabetes Status", title="Frequency of Diabetes by Age", subtitle="Pima indigenous women near Phoenix, AZ") + theme(legend.position = "top", legend.justification = "left") + bbc_style() + theme(axis.title = element_text())
+ggplot(diabetesData, aes(x=Outcome, y=Age)) + geom_boxplot(outlier.shape=NA) + geom_jitter(alpha=0.5) + labs(y="Age", x="Diabetes Status", title="Frequency of Diabetes by Age", subtitle="Pima indigenous women near Phoenix, AZ") + theme(legend.position = "top", legend.justification = "left") + bbc_style() + theme(axis.title = element_text())
 ```
 ## Frequency of Diabetes Between Age and Number of Pregnancies
 
@@ -95,7 +95,7 @@ ggplot(diabetesData, aes(x=GlucoseLevel, y=BMI, color=Outcome)) + geom_boxplot(o
 Plot 5 measures the frequency of type 2 diabetes between skin thickness and BMI. As a woman's BMI increases and her triceps skin fold thickness increases, the likelihood of becoming diabetic is prominent. Women with BMI 25 and higher and have thicker triceps skin folds (mm) are at a higher risk of getting type 2 diabetes.
 
 ```{r bmi skin thickness plot, echo=FALSE}
-ggplot(diabetesData, aes(x=BMI, y=SkinThickness, color=Outcome)) + geom_boxplot(outlier.shape=NA) + geom_jitter(alpha=0.5) + labs(y="Triceps Skin Fold Thickness (mm)", x="BMI", title="Diabetes by BMI & Skin Thickness", subtitle="Pima indigenous women near Phoenix, AZ") + theme(legend.position = "top", legend.justification = "left") + bbc_style() + theme(axis.title = element_text()) + scale_colour_manual(values = c("#2D9900", "red"))
+ggplot(diabetesData, aes(x=BMI, y=SkinThickness, color=Outcome)) + geom_point(outlier.shape=NA) + geom_jitter(alpha=0.5) + labs(y="Triceps Skin Fold Thickness (mm)", x="BMI", title="Diabetes by BMI & Skin Thickness", subtitle="Pima indigenous women near Phoenix, AZ") + theme(legend.position = "top", legend.justification = "left") + bbc_style() + theme(axis.title = element_text()) + scale_colour_manual(values = c("#2D9900", "red")) + stat_smooth(method="lm", formula=y~x, geom="smooth")
 ```
 ## Frequency of Diabetes in Family History
 
