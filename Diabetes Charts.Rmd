@@ -59,62 +59,50 @@ diabetesData <- data.frame(Pregnancies=diabetesData$preg, GlucoseLevel=diabetesD
 head(diabetesData)
 ```
 
-## Frequency of Diabetes Between Age and Number of Pregnancies
+## Frequency of Being Diagnosed with Diabetes Based on Age
 
 Plot 1 measures the frequency of diabetes in women of Pima indigenous heritage living near Phoenix, Arizona as they age. Older women are more likely to be tested positive for diabetes than younger women.
 
 ```{r age diabetic plot, echo=FALSE}
-ggplot(diabetesData, aes(x=Outcome, y=Age)) + geom_point(position="Jitter", width=0.25, alpha=0.5) + labs(y="Age", x="Diabetes Status", title="Frequency of Diabetes in Women", subtitle="Of Pima indigenous heritage near Phoenix, AZ") + theme(legend.position = "top", legend.justification = "left") + bbc_style() + theme(axis.title = element_text())
+ggplot(diabetesData, aes(x=Outcome, y=Age)) + geom_point(position="Jitter", width=0.25, alpha=0.5) + labs(y="Age", x="Diabetes Status", title="Frequency of Diabetes by Age", subtitle="Pima indigenous women near Phoenix, AZ") + theme(legend.position = "top", legend.justification = "left") + bbc_style() + theme(axis.title = element_text())
 ```
 ## Frequency of Diabetes Between Age and Number of Pregnancies
 
-Plot 2 measures the frequency of diabetes in women of Pima indigenous heritage living near Phoenix, Arizona as they age or have more children. The older the woman, the more likely she gets diabetes. Women who had more children are more likely to be tested positive for diabetes. Women who had about 5 or more children tend to have a higher percentage of positive diabetes diagnosis.
+Plot 2 measures the frequency of diabetes in women of Pima indigenous heritage living near Phoenix, Arizona as they age or have more children. Very few women have 5 or more children because nowadays, families do not produce 5 or more children. Women get pregnant at a younger age because these years are their productive years. Most young women, whether they are pregnant or not, are less likely to become diabetic. As the woman ages, her chance of becoming diabetic increases. Women can become diabetic regardless of the number of pregnancies.
 
 ```{r age pregnancies, echo=FALSE}
-ggplot(diabetesData, aes(x=Pregnancies, y=Age, color=Outcome)) + geom_point(position="Jitter", width=0.25, alpha=0.5) + labs(y="Age", x="Number of Pregnancies", title="Frequency of Diabetes in Women", subtitle="Of Pima indigenous heritage near Phoenix, AZ") + theme(legend.position = "top", legend.justification = "left") + bbc_style() + theme(axis.title = element_text()) + scale_colour_manual(values = c("#2D9900", "red"))
+ggplot(diabetesData, aes(x=Pregnancies, y=Age, color=Outcome)) + geom_point(position="Jitter", width=0.25, alpha=0.5) + labs(y="Age", x="Number of Pregnancies", title="Diabetes by Age & Pregnancy", subtitle="Pima indigenous women near Phoenix, AZ") + theme(legend.position = "top", legend.justification = "left") + bbc_style() + theme(axis.title = element_text()) + scale_colour_manual(values = c("#2D9900", "red"))
 ```
 
 ## Frequency of Diabetes Between Age and Blood Pressure Level
 
-Plot 3 measures the frequency of diabetes between age and blood pressure. In general, those who are older and have higher blood pressure tend to be tested for diabetes.
+Plot 3 measures the frequency of diabetes between age and blood pressure. Younger women under 30 years old usually test negative for diabetes. Their diastolic blood pressure is within the normal limit of 60 to 80 mm Hg. Around 35 years old to 60 years old, the chances of becoming diabetic and hypertensive increases.
 
 ```{r age blood pressure plot, echo=FALSE}
-ggplot(diabetesData, aes(x=BloodPressure, y=Age, color=Outcome)) + geom_point(position="Jitter", width=0.25, alpha=0.5) + labs(y="Age", x="Blood Pressure Level", title="Frequency of Diabetes in Women", subtitle="Of Pima indigenous heritage near Phoenix, AZ") + theme(legend.position = "top", legend.justification = "left") + bbc_style() + theme(axis.title = element_text()) + scale_colour_manual(values = c("#2D9900", "red"))
+ggplot(diabetesData, aes(x=BloodPressure, y=Age, color=Outcome)) + geom_point(position="Jitter", width=0.25, alpha=0.5) + labs(y="Age", x="Diastolic Blood Pressure Level (mm Hg)", title="Diabetes Status by Age & BP", subtitle="Pima indigenous women near Phoenix, AZ") + theme(legend.position = "top", legend.justification = "left") + bbc_style() + theme(axis.title = element_text()) + scale_colour_manual(values = c("#2D9900", "red"))
 ```
-## Frequency of Diabetes Between BMI and Blood Glucose Level
+## Frequency of Diabetes Between BMI and Glucose Level
 
-Plot 4 measures the frequency of diabetes between blood glucose level and BMI. In general, women with higher blood glucose level and higher BMI are at risk of diabetes.
+Plot 4 measures the frequency of diabetes between glucose level and BMI. As women's BMI reaches 25 and up (Obesity), their glucose level increases. The higher the BMI above the normal range (18.5–24.99), the higher the chance the woman becomes diabetic. According to American Diabetes Association (https://diabetes.org/diabetes/a1c/diagnosis), the normal glucose level in an oral glucose tolerance test is less than 140 mg/dL. Prediabetes is 140 to 199 mg/dL. Diabetes is 200 mg/dL or higher. At about 130 mg/dL glucose level and higher, majority of women are already at a high risk of becoming diabetic.
 
 ```{r bmi glucose level plot, echo=FALSE}
-ggplot(diabetesData, aes(x=GlucoseLevel, y=BMI, color=Outcome)) + geom_boxplot(outlier.shape=NA) + geom_jitter(alpha=0.5) + labs(y="BMI", x="Blood Glucose Level", title="Frequency of Diabetes in Women", subtitle="Of Pima indigenous heritage near Phoenix, AZ") + theme(legend.position = "top", legend.justification = "left") + bbc_style() + theme(axis.title = element_text()) + scale_colour_manual(values = c("#2D9900", "red"))
+ggplot(diabetesData, aes(x=GlucoseLevel, y=BMI, color=Outcome)) + geom_boxplot(outlier.shape=NA) + geom_jitter(alpha=0.5) + labs(y="BMI", x="Glucose Level in an Oral Glucose Tolerance Test (mg/dL)", title="Diabetes by BMI & Glucose Level", subtitle="Pima indigenous women near Phoenix, AZ") + theme(legend.position = "top", legend.justification = "left") + bbc_style() + theme(axis.title = element_text()) + scale_colour_manual(values = c("#2D9900", "red"))
 ```
-## Frequency of Diabetes Between Insulin Level and Blood Glucose Level
 
-Plot 5 measures the frequency of diabetes between insulin level and blood glucose level. In general, people wit higher glucose level and lower insulin level are at risk of diabetes.
 
-```{r insulin glucose levels plot, echo=FALSE}
-ggplot(diabetesData, aes(x=Insulin, y=GlucoseLevel, color=Outcome)) + geom_boxplot(outlier.shape=NA) + geom_jitter(alpha=0.5) + labs(y="BMI", x="Blood Glucose Level", title="Frequency of Diabetes in Women", subtitle="Of Pima indigenous heritage near Phoenix, AZ") + bbc_style() + theme(axis.title = element_text()) + scale_colour_manual(values = c("#2D9900", "red"))
-```
-## Frequency of Diabetes in Different Triceps Skin Fold Thickness
-
-Plot 6 measures the frequency of diabetes between different triceps skin fold thickness. In general, women with thicker triceps skin fold thickness tend to be at risk of having diabetes.
-
-```{r skin thickness plot, echo=FALSE}
-ggplot(diabetesData, aes(x=Outcome, y=SkinThickness)) + geom_boxplot(outlier.shape=NA) + geom_jitter(alpha=0.5) + labs(y="Skin Thickness", x="Diabetes Status", title="Frequency of Diabetes in Women", subtitle="Of Pima indigenous heritage near Phoenix, AZ") + theme(legend.position = "top", legend.justification = "left") + bbc_style() + theme(axis.title = element_text()) + scale_colour_manual(values = c("#2D9900", "red"))
-```
 ## Frequency of Diabetes in Different Tricep Skin Fold Thickness and BMI
 
-Plot 7 measures the frequency of diabetes between skin thickness and BMI. Women with higher BMI have thicker tricep skin fold thickness (mm). In general, diabetic women have thicker skin and higher BMI.
+Plot 5 measures the frequency of type 2 diabetes between skin thickness and BMI. As a woman's BMI increases and her triceps skin fold thickness increases, the likelihood of becoming diabetic is prominent. Women with BMI 25 and higher and have thicker triceps skin folds (mm) are at a higher risk of getting type 2 diabetes.
 
 ```{r bmi skin thickness plot, echo=FALSE}
-ggplot(diabetesData, aes(x=BMI, y=SkinThickness, color=Outcome)) + geom_boxplot(outlier.shape=NA) + geom_jitter(alpha=0.5) + labs(y="Skin Thickness", x="BMI", title="Frequency of Diabetes in Women", subtitle="Of Pima indigenous heritage near Phoenix, AZ") + theme(legend.position = "top", legend.justification = "left") + bbc_style() + theme(axis.title = element_text()) + scale_colour_manual(values = c("#2D9900", "red"))
+ggplot(diabetesData, aes(x=BMI, y=SkinThickness, color=Outcome)) + geom_boxplot(outlier.shape=NA) + geom_jitter(alpha=0.5) + labs(y="Triceps Skin Fold Thickness (mm)", x="BMI", title="Diabetes by BMI & Skin Thickness", subtitle="Pima indigenous women near Phoenix, AZ") + theme(legend.position = "top", legend.justification = "left") + bbc_style() + theme(axis.title = element_text()) + scale_colour_manual(values = c("#2D9900", "red"))
 ```
 ## Frequency of Diabetes in Family History
 
-Plot 8 measures the frequency of diabetes in the diabetes pedigree function. The diabetes pedigree function is a function that measures the likelihood of diabetes based on family history. A higher value in the diabetes pedigree function indicates that the woman is at a higher risk of having diabetes. Diabetic women have a higher pedigree function value than those who are not diabetic.
+Plot 6 measures the frequency of type 2 diabetes in the diabetes pedigree function. The diabetes pedigree function is a function that measures the likelihood of type 2 diabetes based on family history. A higher value in the diabetes pedigree function indicates that the woman is at risk of developing type 2 diabetes. Women can still become diabetic even when their diabetes pedigree is lower than 0.5. However, there are more women who tested negative for diabetes with a diabetes pedigree 0.5 and lower.
 
 ```{r diabetes pedigree function, echo=FALSE}
-ggplot(diabetesData, aes(x=Outcome, y=DiabetesPedigreeFunction)) + geom_boxplot(outlier.shape=NA) + geom_jitter(alpha=0.5) + labs(y="Diabetes Pedigree Family History", x="Diabetes Status", title="Frequency of Diabetes in Women", subtitle="Of Pima indigenous heritage near Phoenix, AZ") + theme(legend.position = "top", legend.justification = "left") + bbc_style() + theme(axis.title = element_text()) + scale_colour_manual(values = c("#2D9900", "red"))
+ggplot(diabetesData, aes(x=Outcome, y=DiabetesPedigreeFunction)) + geom_boxplot(outlier.shape=NA) + geom_jitter(alpha=0.5) + labs(y="Diabetes Pedigree Family History", x="Diabetes Status", title="Diabetes Status by Family History", subtitle="Pima indigenous women near Phoenix, AZ") + theme(legend.position = "top", legend.justification = "left") + bbc_style() + theme(axis.title = element_text()) + scale_colour_manual(values = c("#2D9900", "red"))
 ```
 
 ## Frequency of Diabetes Apriori
@@ -138,17 +126,13 @@ rules <- apriori(trans, parameter = parameter, appearance = appearance)
 # Views rules.
 inspect(rules)
 ```
-Uses arulesViz to visualize the results.
+Uses arulesViz to visualize the results. The x axis represents the support while the y axis represents the confidence or lift. Support indicates how frequently a set of items appear in the data. It is the number of transactions that contains this set. Confidence or lift indicates how often the support rule is true. Lift is a measure of association using both support and confidence. The lift value of an association rule includes the list of rules whose confidence is above the threshold.
 
 ```{r}
 # BEGIN SOLUTION
 library(arulesViz)
 
-plot(rules, main = "Diabetes")
-"
-[The x axis represents the support while the y axis represents the confidence or lift. Support indicates how frequently a set of items appear in the data. It is the number of transactions that contains this set. Confidence or lift indicates how often the support rule is true. Lift is a measure of association using both support and confidence. The lift value of an association rule includes the list of rules whose confidence is above the threshold.]
-"
-# END SOLUTION
+plot(rules, main = "Visualized Association Rules Diabetes in Pima Indigenous Women")
 ```
 Sorts the list of previously created rules and uses lift > 2.9 to find the best rules.
 ```{r}
@@ -156,7 +140,7 @@ Sorts the list of previously created rules and uses lift > 2.9 to find the best 
 # Sort the list of previously created rules.
 sortedRules <- sort(rules)
 
-# Uses lift > 0.99 to find the best rules.
+# Uses lift > 2.9 to find the best rules.
 subrules <- subset(sortedRules, lift>2.9)
-plot(subrules)
+plot(subrules, main = "Best Association Rules Diabetes in Pima Indigenous Women")
 ```
