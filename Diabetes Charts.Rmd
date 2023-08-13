@@ -1,5 +1,5 @@
 ---
-title: "Frequency of Diabetes Among Women of Pima Indigenous Heritage Living Near Phoenix, Arizona"
+title: "Frequency of Type 2 Diabetes Among Women of Pima Indigenous Heritage Living Near Phoenix, Arizona"
 output: html_document
 date: "2023-07-31"
 ---
@@ -27,7 +27,7 @@ library(dplyr)
 
 ## Diabetes DataFrame
 
-The diabetes dataframe comes from Datahub.io. It appears in Kaggle and many research papers regarding the frequency of diabetes among indigenous Native American people. The columns included in the table are:
+The diabetes dataframe comes from Datahub.io. It appears in Kaggle and many research papers regarding the frequency of type 2 diabetes among indigenous Native American people. The columns included in the table are:
 Pregnancies - Number of pregnancies.
 GlucoseLevel - Plasma glucose concentration a 2 hours in an oral glucose tolerance test.
 BloodPressure - Diastolic blood pressure measurement (mm Hg) taken at the time of the study.
@@ -61,14 +61,14 @@ head(diabetesData)
 
 ## Frequency of Being Diagnosed with Diabetes Based on Age
 
-Plot 1 measures the frequency of diabetes in women of Pima indigenous heritage living near Phoenix, Arizona as they age. Older women are more likely to be tested positive for diabetes than younger women.
+Plot 1 measures the frequency of type 2 diabetes in women of Pima indigenous heritage living near Phoenix, Arizona as they age. Older women are more likely to be tested positive for type 2 diabetes than younger women.
 
 ```{r age diabetic plot, echo=FALSE}
 ggplot(diabetesData, aes(x=Outcome, y=Age)) + geom_point(position="Jitter", width=0.25, alpha=0.5) + labs(y="Age", x="Diabetes Status", title="Frequency of Diabetes by Age", subtitle="Pima indigenous women near Phoenix, AZ") + theme(legend.position = "top", legend.justification = "left") + bbc_style() + theme(axis.title = element_text())
 ```
 ## Frequency of Diabetes Between Age and Number of Pregnancies
 
-Plot 2 measures the frequency of diabetes in women of Pima indigenous heritage living near Phoenix, Arizona as they age or have more children. Very few women have 5 or more children because nowadays, families do not produce 5 or more children. Women get pregnant at a younger age because these years are their productive years. Most young women, whether they are pregnant or not, are less likely to become diabetic. As the woman ages, her chance of becoming diabetic increases. Women can become diabetic regardless of the number of pregnancies.
+Plot 2 measures the frequency of type 2 diabetes in women of Pima indigenous heritage living near Phoenix, Arizona as they age or have more children. Very few women have 5 or more children because nowadays, families do not produce 5 or more children. Women get pregnant at a younger age because these years are their productive years. Most young women, whether they are pregnant or not, are less likely to become diabetic. As the woman ages, her chance of becoming diabetic increases. Women can become diabetic regardless of the number of pregnancies.
 
 ```{r age pregnancies, echo=FALSE}
 ggplot(diabetesData, aes(x=Pregnancies, y=Age, color=Outcome)) + geom_point(position="Jitter", width=0.25, alpha=0.5) + labs(y="Age", x="Number of Pregnancies", title="Diabetes by Age & Pregnancy", subtitle="Pima indigenous women near Phoenix, AZ") + theme(legend.position = "top", legend.justification = "left") + bbc_style() + theme(axis.title = element_text()) + scale_colour_manual(values = c("#2D9900", "red"))
@@ -76,14 +76,14 @@ ggplot(diabetesData, aes(x=Pregnancies, y=Age, color=Outcome)) + geom_point(posi
 
 ## Frequency of Diabetes Between Age and Blood Pressure Level
 
-Plot 3 measures the frequency of diabetes between age and blood pressure. Younger women under 30 years old usually test negative for diabetes. Their diastolic blood pressure is within the normal limit of 60 to 80 mm Hg. Around 35 years old to 60 years old, the chances of becoming diabetic and hypertensive increases.
+Plot 3 measures the frequency of type 2 diabetes between age and blood pressure. Younger women under 30 years old usually test negative for type 2 diabetes. Their diastolic blood pressure is within the normal limit of 60 to 80 mm Hg. Around 35 years old to 60 years old, the chances of becoming diabetic and hypertensive increases.
 
 ```{r age blood pressure plot, echo=FALSE}
 ggplot(diabetesData, aes(x=BloodPressure, y=Age, color=Outcome)) + geom_point(position="Jitter", width=0.25, alpha=0.5) + labs(y="Age", x="Diastolic Blood Pressure Level (mm Hg)", title="Diabetes Status by Age & BP", subtitle="Pima indigenous women near Phoenix, AZ") + theme(legend.position = "top", legend.justification = "left") + bbc_style() + theme(axis.title = element_text()) + scale_colour_manual(values = c("#2D9900", "red"))
 ```
 ## Frequency of Diabetes Between BMI and Glucose Level
 
-Plot 4 measures the frequency of diabetes between glucose level and BMI. As women's BMI reaches 25 and up (Obesity), their glucose level increases. The higher the BMI above the normal range (18.5–24.99), the higher the chance the woman becomes diabetic. According to American Diabetes Association (https://diabetes.org/diabetes/a1c/diagnosis), the normal glucose level in an oral glucose tolerance test is less than 140 mg/dL. Prediabetes is 140 to 199 mg/dL. Diabetes is 200 mg/dL or higher. At about 130 mg/dL glucose level and higher, majority of women are already at a high risk of becoming diabetic.
+Plot 4 measures the frequency of type 2 diabetes between glucose level and BMI. As women's BMI reaches 25 and up (Obesity), their glucose level increases. The higher the BMI above the normal range (18.5–24.99), the higher the chance the woman becomes diabetic. According to American Diabetes Association (https://diabetes.org/diabetes/a1c/diagnosis), the normal glucose level in an oral glucose tolerance test is less than 140 mg/dL. Prediabetes is 140 to 199 mg/dL. Diabetes is 200 mg/dL or higher. At about 130 mg/dL glucose level and higher, majority of women are already at a high risk of becoming diabetic.
 
 ```{r bmi glucose level plot, echo=FALSE}
 ggplot(diabetesData, aes(x=GlucoseLevel, y=BMI, color=Outcome)) + geom_boxplot(outlier.shape=NA) + geom_jitter(alpha=0.5) + labs(y="BMI", x="Glucose Level in an Oral Glucose Tolerance Test (mg/dL)", title="Diabetes by BMI & Glucose Level", subtitle="Pima indigenous women near Phoenix, AZ") + theme(legend.position = "top", legend.justification = "left") + bbc_style() + theme(axis.title = element_text()) + scale_colour_manual(values = c("#2D9900", "red"))
@@ -107,7 +107,7 @@ ggplot(diabetesData, aes(x=Outcome, y=DiabetesPedigreeFunction)) + geom_boxplot(
 
 ## Frequency of Diabetes Apriori
 
-The Apriori rules compare the risk of diabetes occuring under different body conditions, such as number of Pregnancies, Blood Glucose Level, Blood Pressure, Skin Thickness, Insulin level, BMI, and Age.
+The Apriori rules compare the risk of type 2 diabetes occuring under different body conditions, such as number of Pregnancies, Blood Glucose Level, Blood Pressure, Skin Thickness, Insulin level, BMI, and Age.
 
 ```{r apriori, echo=FALSE}
 set.seed(3)
