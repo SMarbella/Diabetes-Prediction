@@ -99,15 +99,15 @@ ggplot(diabetesData, aes(x=BMI, y=SkinThickness, color=Outcome)) + geom_boxplot(
 ```
 ## Frequency of Diabetes in Family History
 
-Plot 6 measures the frequency of type 2 diabetes in the diabetes pedigree function. The diabetes pedigree function is a function that measures the likelihood of type 2 diabetes based on family history. A higher value in the diabetes pedigree function indicates that the woman is at risk of developing type 2 diabetes. Women can still become diabetic even when their diabetes pedigree is lower than 0.5. However, there are more women who tested negative for diabetes with a diabetes pedigree 0.5 and lower.
+Plot 6 measures the frequency of type 2 diabetes in the diabetes pedigree function. The diabetes pedigree function is a function that measures the likelihood of type 2 diabetes based on family history. A higher value in the diabetes pedigree function indicates that the woman is at risk of developing type 2 diabetes. Women can still become diabetic even when their diabetes pedigree is lower than 0.5. However, there are more women who tested negative for diabetes with a diabetes pedigree of 0.5 and lower.
 
 ```{r diabetes pedigree function, echo=FALSE}
 ggplot(diabetesData, aes(x=Outcome, y=DiabetesPedigreeFunction)) + geom_boxplot(outlier.shape=NA) + geom_jitter(alpha=0.5) + labs(y="Diabetes Pedigree Family History", x="Diabetes Status", title="Diabetes Status by Family History", subtitle="Pima indigenous women near Phoenix, AZ") + theme(legend.position = "top", legend.justification = "left") + bbc_style() + theme(axis.title = element_text()) + scale_colour_manual(values = c("#2D9900", "red"))
 ```
 
-## Frequency of Diabetes Apriori
+## Association Rules For Diabetes Frequency
 
-The Apriori rules compare the risk of type 2 diabetes occuring under different body conditions, such as number of Pregnancies, Blood Glucose Level, Blood Pressure, Skin Thickness, Insulin level, BMI, and Age.
+The Association Rules from the apriori library compare the risk of type 2 diabetes occurring under different body conditions, such as number of Pregnancies, Blood Glucose Level, Blood Pressure, Skin Thickness, Insulin level, BMI, and Age.
 
 ```{r apriori, echo=FALSE}
 set.seed(3)
@@ -126,7 +126,7 @@ rules <- apriori(trans, parameter = parameter, appearance = appearance)
 # Views rules.
 inspect(rules)
 ```
-Uses arulesViz to visualize the results. The x axis represents the support while the y axis represents the confidence or lift. Support indicates how frequently a set of items appear in the data. It is the number of transactions that contains this set. Confidence or lift indicates how often the support rule is true. Lift is a measure of association using both support and confidence. The lift value of an association rule includes the list of rules whose confidence is above the threshold.
+The arulesViz library visualizes the results. The x axis represents the support while the y axis represents the confidence or lift. Support indicates how frequently a set of items appear in the data. It is the number of transactions that contains this set. Confidence or lift indicates how often the support rule is true. Lift is a measure of association using both support and confidence. The lift value of an association rule includes the list of rules whose confidence is above the threshold.
 
 ```{r}
 # BEGIN SOLUTION
@@ -134,10 +134,10 @@ library(arulesViz)
 
 plot(rules, main = "Visualized Association Rules Diabetes in Pima Indigenous Women")
 ```
-Sorts the list of previously created rules and uses lift > 2.9 to find the best rules.
+The previously created Association Rules can be sorted and filtered to find the best rules. A high filter, such as lift > 2.9, picks out the best rules. The best rules have a very high confidence (precision) and low support (recall) value because they show that the data is very precise. In this data, values with a lift > 2.9 show that certain table columns have a strong association with positive type 2 diabetes diagnosis.
 ```{r}
 # BEGIN SOLUTION
-# Sort the list of previously created rules.
+# Sorts the list of previously created rules.
 sortedRules <- sort(rules)
 
 # Uses lift > 2.9 to find the best rules.
