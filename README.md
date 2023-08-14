@@ -57,7 +57,7 @@ Plot 1 measures the frequency of type 2 diabetes in women of Pima indigenous her
 ![Image](https://github.com/SMarbella/Diabetes-Prediction/blob/main/data/Chart%20-%20Frequency%20of%20Diabetes%20by%20Age.png)
 
 ## Frequency of Diabetes Between Age and Number of Pregnancies
-Plot 2 measures the frequency of type 2 diabetes in women of Pima indigenous heritage living near Phoenix, Arizona as they age or have more children. Very few women have 5 or more children because nowadays, families do not produce 5 or more children. Women get pregnant at a younger age because these years are their productive years. Most young women, whether they are pregnant or not, are less likely to become diabetic. As the woman ages, her chance of becoming diabetic increases. Women can become diabetic regardless of the number of pregnancies.
+Plot 2 measures the frequency of type 2 diabetes in women of Pima indigenous heritage living near Phoenix, Arizona as they age or have more children. Very few women have 5 or more children because nowadays, families do not produce that many children. Women get pregnant at a younger age because these years are their productive years. Most young women, whether they are pregnant or not, are less likely to become diabetic. As the woman ages, her chance of becoming diabetic increases. Women can become diabetic regardless of the number of pregnancies.
 
 ![Image](https://github.com/SMarbella/Diabetes-Prediction/blob/main/data/Chart%20-%20Diabetes%20by%20Age%20%26%20Pregnancy.png)
 
