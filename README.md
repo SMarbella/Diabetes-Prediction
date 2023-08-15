@@ -1,6 +1,8 @@
 # Diabetes Data Mining Prediction - Frequency of Type 2 Diabetes Among Women of Pima Indigenous Heritage Living Near Phoenix, Arizona
 Final Project for INFO 523: Data Mining and Discovery
 
+Video: https://youtu.be/HklvHK4OKtk
+
 ## Dataset Information
 **Title:** Pima Indians Diabetes Database
 
