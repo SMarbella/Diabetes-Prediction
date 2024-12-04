@@ -54,6 +54,8 @@ Outcome - Tested either positive or negative for diabetes.
 Many more that cited them: https://diabetesjournals.org/diabetes/search-results?page=1&q=pima&fl_SiteID=1000001
 
 # Charts Generated For This Project
+The programming language I used to generate my graphs and analytical results is R using R Studio.
+
 ## Frequency of Being Diagnosed with Diabetes Based on Age
 Plot 1 measures the frequency of type 2 diabetes in women of Pima indigenous heritage living near Phoenix, Arizona as they age. Older women are more likely to be tested positive for type 2 diabetes than younger women.
 ![Image](https://github.com/SMarbella/Diabetes-Prediction/blob/main/data/Chart%20-%20Frequency%20of%20Diabetes%20by%20Age.png)
